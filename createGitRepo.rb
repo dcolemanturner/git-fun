@@ -1,20 +1,33 @@
 require 'rugged'
 
-dir_name = "git-test"
+dir_name =  Dir.pwd + "/" + "git-test"
+git_repo = dir_name + '/.git/'
 
 if !Dir.exists? dir_name
 	Dir.mkdir(dir_name)
 end
 
-##todo: this object is returning a plain string.  We need to return a full repository object in ordee to write commits
+##todo: this object is returning a plain string.  We need to return a full repository object in order to write commits
 ## it's also having difficulty locating the directory_name folder.
-repo = Rugged::Repository.discover("/" + dir_name + "/")
-puts repo.inspect
 
-if repo.empty?
-	puts "Repo is empty"
+repo = Rugged::Repository.discover(dir_name)
+puts "Repo inspection in find method: " + repo.inspect
+puts "Expected repo Dir: " + git_repo
+puts repo.class
+
+if repo != git_repo
+	puts "repo missing! \n\n"
+	#instantiate the repo because it is not there!
 	repo = Rugged::Repository.init_at dir_name
+	puts "Repo inspection post init: " + repo.inspect
+	puts repo.class
+else 
+	puts "repo found! \n\n"
+	#instantiate a repo class with existing git repo
+
 end
+
+#will have a valid repo object by now
 
 #load copy 1.0 to start the repo
 File.open( dir_name + "/out.txt", 'w') {|f| f.write( "Version 1.0: line of information" ) }
