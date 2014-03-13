@@ -7,7 +7,6 @@ if !Dir.exists? dir_name
 	Dir.mkdir(dir_name)
 end
 
-##todo: this object is returning a plain string.  We need to return a full repository object in order to write commits
 ## it's also having difficulty locating the directory_name folder.
 
 repo = Rugged::Repository.discover(dir_name)
@@ -23,8 +22,7 @@ if repo != git_repo
 	puts repo.class
 else 
 	puts "repo found! \n\n"
-	#instantiate a repo class with existing git repo
-
+	#TODO: instantiate a repo class with existing git repo
 end
 
 #will have a valid repo object by now
