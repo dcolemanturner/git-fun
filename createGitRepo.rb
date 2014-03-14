@@ -8,7 +8,6 @@ if !Dir.exists? dir_name
 end
 
 ## it's also having difficulty locating the directory_name folder.
-
 repo = Rugged::Repository.discover(dir_name)
 puts "Repo inspection in find method: " + repo.inspect
 puts "Expected repo Dir: " + git_repo
@@ -22,7 +21,20 @@ if repo != git_repo
 	puts repo.class
 else 
 	puts "repo found! \n\n"
+	puts dir_name[1..-1]
+	puts git_repo[1..-1]
 	#TODO: instantiate a repo class with existing git repo
+	repo2 = Rugged::Repository.new(dir_name[1..-1]) #dir_name
+	puts "Inspect repo class: " + repo2.class.to_s
+	puts "Inspect repo: " + repo2.inspect
+
+	#repo = Rugged::Repository.init_at dir_name
+	#puts "Inspect repo class: " + repo.class.to_s
+	#puts "Inspect repo: " + repo.inspect
+
+	#Rugged::Repository.new("git-test")
+	#repo2 = Rugged::Repository.new(repo)
+
 end
 
 #will have a valid repo object by now
